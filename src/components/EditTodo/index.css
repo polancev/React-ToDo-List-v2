@@ -1,0 +1,41 @@
+.edit-todo {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+}
+  
+.edit-todo__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+}
+  
+.edit-todo__title input {
+	font-size: 1em;
+	color: #6A6A6A;
+	padding-left: 5px;
+	border: 1px solid #6A6A6A;
+	border-radius: 2px;
+	margin-bottom: 10px;
+}
+  
+.edit-todo__check {
+	margin-bottom: 10px;
+}
+  
+.edit-todo__check span {
+	padding-left: 5px;
+}
+  
+.edit-todo__description textarea {
+	width: 98%;
+	color: #6A6A6A;
+	height: 400px;
+	resize: none;
+	font-size: 1em;
+	padding: 5px;
+	border: 1px solid #6A6A6A;
+	border-radius: 2px;
+}
+  

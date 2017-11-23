@@ -1,0 +1,37 @@
+[
+	{ 
+    "id": "b93e2f76-e5a2-4090-8e81-d4f86914dca3",
+    "name": "Category 3",
+    "parent": null,
+    "isOpened": false,
+    "timestamp": "1511280340004"
+  },
+	{ 
+    "id": "2ffd7201-192a-4777-a9fb-805928914c83",
+    "name": "Category 2",
+    "parent": null,
+    "isOpened": true,
+    "timestamp": "1511280340005"
+  },
+	{ 
+    "id": "edcf863a-1092-4c87-8fed-aab0493292dc",
+    "name": "Category 1",
+    "parent": null,
+    "isOpened": false,
+    "timestamp": "1511280340006"
+  },
+	{ 
+    "id": "126c7b94-cb5c-4b0f-b1a3-ad53107480b2",
+    "name": "Category 2-2",
+    "parent": "2ffd7201-192a-4777-a9fb-805928914c83",
+    "isOpened": false,
+    "timestamp": "1511280340007"
+  },
+	{ 
+    "id": "289513ae-17c8-4ad5-95ef-5d368cc9a5a7",
+    "name": "Category 2-1",
+    "parent": "2ffd7201-192a-4777-a9fb-805928914c83",
+    "isOpened": false,
+    "timestamp": "1511280340008"
+  }
+]

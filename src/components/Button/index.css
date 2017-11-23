@@ -1,0 +1,33 @@
+button {
+	margin: 1px 1px 0;
+  background-color: rgba(0,0,0,0);
+	cursor: pointer;
+}
+
+button:focus {
+	outline: 1px solid #00aff0;
+	-moz-outline-radius: 5px;
+}
+
+.borderless {
+	border: none;
+}
+
+.bordered {
+	border: 1px solid #CCCCCC;
+	border-radius: 5px;
+}
+
+.button-icon {
+	margin: 5px 4px;
+}
+
+.unchecked-box {
+	margin-right: 6px;
+}
+
+.simple {
+  padding: 0 10px;
+  font-size: inherit;
+  color: inherit;
+}

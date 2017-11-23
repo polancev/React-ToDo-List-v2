@@ -1,0 +1,15 @@
+.categories {
+	display: flex;
+	flex-direction: column;
+}
+
+.category-input {
+	align-self: flex-start;
+	margin-bottom: 20px;
+}
+
+.category-list__wrapper {
+	flex-basis: 100%;
+	/* overflow: scroll; */
+	height: 100%;
+}

@@ -1,0 +1,46 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header__search .header__checkbox {
+  width: 25%;
+}
+
+.header__search input[type="text"] {
+	width: 50%;
+	font-size: 1em;
+  color: #6A6A6A;
+  margin-left: 5px;
+	padding-left: 5px;
+	border: 1px solid #6A6A6A;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.header__search input[type="button"] {
+	width: 10%;
+	font-family: "TomsHandwritten";
+	font-size: 1em;
+	color: #6A6A6A;
+	background-color: #fff;
+	border: 1px solid #6A6A6A;
+	border-left: none;
+	border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  border: 1px solid #6b6a6a;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.fill-bar {
+  background-color: #b8b5b5;
+  height: 15px;
+  border: 1px solid #b8b5b5;
+  border-radius: 2px;
+}

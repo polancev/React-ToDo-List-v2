@@ -1,0 +1,11 @@
+.todos {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+  }
+  
+  .todo-input {
+	  align-self: flex-end;
+	  margin-bottom: 20px;
+  }
+  
