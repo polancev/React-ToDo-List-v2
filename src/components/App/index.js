@@ -14,8 +14,7 @@ class App extends Component {
       <div className="app">
         <Router>
           <Switch>
-            <Route path="/" exact component={ListView} />
-            <Route path="/:category" exact component={ListView} />
+            <Route path="/:category?" exact component={ListView} />
             <Route path="/edit/:todo" exact component={EditView} />
           </Switch>
         </Router>

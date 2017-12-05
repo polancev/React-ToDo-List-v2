@@ -22,6 +22,9 @@ class CategoryStore {
             list.forEach(item => {
               this.categories.set(item.id, {...item});
             });
+            for (let i = 0; i < 1000; i++) {
+              this.categories.set(i, new Category('Category '+i));
+            }
             this.pending = false;
           });
         });
