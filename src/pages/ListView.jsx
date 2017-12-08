@@ -8,7 +8,10 @@ const ListView = (props) => {
   const { match, location } = props;
   const { category } = match.params;
   const { search } = location;
-  let filterParams = { filter: '', checked: false };
+  let filterParams = {
+    filter: '',
+    checked: false 
+  };
   if (search) {
     const { filter, checked } = parse(search.split('?')[1]);
     filterParams = { filter, checked: checked === 'true'};
