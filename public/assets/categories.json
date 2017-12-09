@@ -2,21 +2,21 @@
 	{ 
     "id": "b93e2f76-e5a2-4090-8e81-d4f86914dca3",
     "name": "Category 3",
-    "parent": null,
+    "parent": "",
     "isOpened": false,
     "timestamp": "1511280340004"
   },
 	{ 
     "id": "2ffd7201-192a-4777-a9fb-805928914c83",
     "name": "Category 2",
-    "parent": null,
+    "parent": "",
     "isOpened": true,
     "timestamp": "1511280340005"
   },
 	{ 
     "id": "edcf863a-1092-4c87-8fed-aab0493292dc",
     "name": "Category 1",
-    "parent": null,
+    "parent": "",
     "isOpened": false,
     "timestamp": "1511280340006"
   },

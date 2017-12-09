@@ -21,7 +21,7 @@ export default class Categories extends Component {
           </div>
         }
         <div className="category-list__wrapper">
-          <CategoryList {...this.props} parent={null} />
+          <CategoryList {...this.props} parent="" />
         </div>
       </div>
     )

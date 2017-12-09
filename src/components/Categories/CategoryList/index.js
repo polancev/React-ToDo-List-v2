@@ -9,8 +9,9 @@ class CategoryList extends Component {
   render() {
     const { store, parent, selectedCategory } = this.props;
     const { categoryStore } = store;
-    const categoryItems = categoryStore.list
-      .filter(category => category.parent === parent)
+    const categoryItems = categoryStore.getCategories(parent)
+      // .list
+      // .filter(category => category.parent === parent)
       .map(category => {
         const { id, isOpened } = category;
         const InjectedObserverCategoryList = inject('store')(observer(CategoryList));

@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed, runInAction, createTransformer } from 'mobx';
 import { v4 } from 'uuid';
 import todoStore from './TodoStore';
 
@@ -96,13 +96,20 @@ class CategoryStore {
     });
   }
   
-  @computed
-  get list() {
+  // @computed
+  // get list() {
+  //   return this.categories
+  //     .keys()
+  //     .sort((a, b) => this.categories.get(a).timestamp < this.categories.get(b).timestamp)
+  //     .map(id => ({ id, ...this.categories.get(id) }));
+  // }
+
+  getCategories = createTransformer(parent => {
     return this.categories
-      .keys()
-      .sort((a, b) => this.categories.get(a).timestamp < this.categories.get(b).timestamp)
-      .map(id => ({ id, ...this.categories.get(id) }));
-  }
+      .values()
+      .filter(category => category.parent === parent)
+      .sort((a, b) => a.timestamp < b.timestamp);
+  });
 
   hasChildren(id) {
     return !!this.categories.values().find(item => item.parent === id);
