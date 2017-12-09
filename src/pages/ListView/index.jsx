@@ -1,13 +1,14 @@
 import React from 'react';
 import { parse } from 'qs';
-import Header from '../components/Header/index';
-import Categories from '../components/Categories/index';
-import Todos from '../components/Todos/index';
+import Header from './Header/index';
+import Categories from '../../components/Categories/index';
+import Todos from './Todos/index';
 
 const ListView = (props) => {
   const { match, location } = props;
   const { category } = match.params;
   const { search } = location;
+  
   let filterParams = {
     filter: '',
     checked: false 

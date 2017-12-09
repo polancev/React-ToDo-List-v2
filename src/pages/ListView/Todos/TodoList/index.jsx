@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import TodoItem from '../TodoItem/index';
+import TodoItem from './TodoItem/index';
 
 @inject('store')
 @observer

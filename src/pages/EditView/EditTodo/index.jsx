@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import SimpleButton from '../SimpleButton/index';
-import Checkbox from '../Checkbox/index';
+import SimpleButton from '../../../controls/SimpleButton/index';
+import Checkbox from '../../../controls/Checkbox/index';
 import './index.css';
 
 @inject('store')

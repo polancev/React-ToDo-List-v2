@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react'
-import Categories from '../components/Categories/index';
-import EditTodo from '../components/EditTodo/index';
+import Categories from '../../components/Categories/index';
+import EditTodo from './EditTodo/index';
 
 @inject('store')
 @observer

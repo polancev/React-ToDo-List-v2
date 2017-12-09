@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import Button from '../Button/index';
+import Button from '../../../../controls/Button/index';
 import './index.css';
 import { inject } from 'mobx-react';
 
 @inject('store')
-class CategoryItem extends Component {
-  constructor() {
-    super();
-    this.state = { showModal: false };
-  }
-
+export default class CategoryItem extends Component {
+  
 	render() {
     const { category, mode, selected, store, location } = this.props;
     const { categoryStore } = store;
@@ -34,19 +29,10 @@ class CategoryItem extends Component {
                     <Button type='add' onClick={(e) => this.add(id, e)}/>
                   </div>)
                 : (!selected && <Button type="move" onClick={(e) => this.move(id, e)}/>)
-              }
-              
+              }    
             </div>
           </div>
         </Link>
-        {/* <Modal 
-          isOpen={this.state.showModal} 
-          onRequestClose={() => this.closeModal()} 
-          className="Modal"
-          overlayClassName="Overlay">
-            <button onClick={() => this.closeModal()}>close</button>
-            <div>I am a modal</div>
-        </Modal> */}
 			</div>
 		);
 	}
@@ -96,57 +82,3 @@ class CategoryItem extends Component {
     this.setState({ showModal: false });
   }
 };
-
-// const CategoryItem = ({
-//   category,
-//   selected,
-//   hasChildren,
-//   onToggle,
-//   onEdit,
-//   onDelete,
-//   onAddSub
-// }) => {
-//   const { id, name, isOpened } = category;
-//   return (
-//     <div className={selected ? "category selected" : "category"}>
-//       <div className="category__wrapper">
-//         {hasChildren && (isOpened
-//           ? <AngleUpButton onClick={onToggle}/>
-//           : <AngleDownButton onClick={onToggle}/>)
-//         }
-//         <Link to={`/todos/${id}`} className="category__title">{name}</Link>
-//         <EditButton onClick={onEdit}/>
-//       </div>
-//       <div className="category__wrapper">
-//         <DeleteButton onClick={onDelete}/>
-//         <AddButton onClick={onAddSub}/>
-//       </div>
-//     </div>
-//   );
-// }
-
-// const CategoryMove = ({
-//   category,
-//   selected,
-//   hasChildren,
-//   onToggle,
-//   onMove
-// }) => { 
-//   const { title, opened } = category;
-//   return (
-//     <div className={selected ? "category selected" : "category"}>
-//       <div className="category__wrapper">
-//         {hasChildren && (opened
-//           ? <AngleUpButton onClick={onToggle}/>
-//           : <AngleDownButton onClick={onToggle}/>)
-//         }
-//         <div className="category__title">{title}</div>
-//       </div>
-//       <div className="category__wrapper">
-//         <MoveButton onClick={onMove}/>
-//       </div>
-//     </div>
-//   );
-// }
-
-export default CategoryItem;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import CategoryItem from '../CategoryItem/index';
+import CategoryItem from './CategoryItem/index';
 import './index.css';
 
 @inject('store')
@@ -26,7 +26,7 @@ class CategoryList extends Component {
                 <InjectedObserverCategoryList
                   {...this.props}
                   parent={id}
-                   />
+                />
               </div>
             }
           </li>

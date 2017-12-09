@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Button from '../Button/index';
-import Checkbox from '../Checkbox/index';
+import Button from '../../../../../controls/Button/index';
+import Checkbox from '../../../../../controls/Checkbox/index';
 import './index.css';
 
 class TodoItem extends Component {

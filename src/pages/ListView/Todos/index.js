@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import UserInput from '../UserInput/index';
-import TodoList from '../TodoList/index';
+import UserInput from '../../../controls/UserInput/index';
+import TodoList from './TodoList/index';
 import './index.css';
 
 @inject('store')

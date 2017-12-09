@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
-import UserInput from '../UserInput/index';
-import CategoryList from '../CategoryList/index';
+import UserInput from '../../controls/UserInput/index';
+import CategoryList from './CategoryList/index';
 import './index.css';
 
 @inject('store')
 @observer
-class Categories extends Component {
+export default class Categories extends Component {
   render() {
-    const { store, mode } = this.props;
+    const { mode } = this.props;
 
     return (
       <div className="categories">
@@ -17,7 +17,7 @@ class Categories extends Component {
             <UserInput
               value="Add"
               placeholder="Enter category title"
-              onSubmit={(name) => store.categoryStore.add(name)} />
+              onSubmit={this.addCategory} />
           </div>
         }
         <div className="category-list__wrapper">
@@ -25,7 +25,9 @@ class Categories extends Component {
         </div>
       </div>
     )
-  }
-}
+  };
 
-export default Categories;
+  addCategory = (name) => {
+    this.props.store.categoryStore.add(name);
+  }
+};

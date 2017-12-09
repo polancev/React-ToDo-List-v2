@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { stringify, parse } from 'qs';
-import Checkbox from '../Checkbox/index';
+import Checkbox from '../../../controls/Checkbox';
 import './index.css';
 
 

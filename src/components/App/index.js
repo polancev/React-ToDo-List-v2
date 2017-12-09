@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+// import { observer } from 'mobx-react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
-import ListView from '../../pages/ListView';
-import EditView from '../../pages/EditView';
+import ListView from '../../pages/ListView/index';
+import EditView from '../../pages/EditView/index';
 
 
-@inject('store')
-@observer
 class App extends Component {
   render() {
     return (
@@ -15,7 +13,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/:category?" exact component={ListView} />
-            <Route path="/edit/:todo" exact component={EditView} />
+            {/* <Route path="/edit/:todo" exact component={EditView} /> */}
           </Switch>
         </Router>
       </div>
