@@ -4,12 +4,16 @@ import UserInput from '../../controls/UserInput/index';
 import CategoryList from './CategoryList/index';
 import './index.css';
 
-@inject('store')
+@inject('categoryStore')
 @observer
 export default class Categories extends Component {
   render() {
-    const { mode } = this.props;
-
+    const {
+      mode,
+      selectedCategory,
+      location,
+      onMove
+    } = this.props;
     return (
       <div className="categories">
         {(mode === "edit") &&
@@ -21,13 +25,19 @@ export default class Categories extends Component {
           </div>
         }
         <div className="category-list__wrapper">
-          <CategoryList {...this.props} parent="" />
+          <CategoryList 
+            selectedCategory={selectedCategory}
+            mode={mode}
+            location={location}
+            parent=""
+            onMove={onMove}
+          />
         </div>
       </div>
     )
   };
 
   addCategory = (name) => {
-    this.props.store.categoryStore.add(name);
+    this.props.categoryStore.add(name);
   }
 };

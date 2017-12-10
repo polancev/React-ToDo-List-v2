@@ -4,7 +4,7 @@ import './index.css';
 export default class UserInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: '' };
+    this.state = { title: props.initialValue || '' };
   }
 
   inputChange = (event) => {

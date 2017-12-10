@@ -1,33 +1,41 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router'
 import { stringify, parse } from 'qs';
 import Checkbox from '../../../controls/Checkbox';
 import './index.css';
 
-
-@inject('store')
+@withRouter
+@inject('todoStore')
 @observer
 class Header extends Component {
   constructor(props) {
     super(props);
-    
     const { search } = props.location;
     if (!search) {
-      this.state = { filter: '', checked: false };
+      this.state = { 
+        filter: '',
+        checked: false
+      };
     } else {
       const { filter, checked } = parse(search.split('?')[1]);
-      this.state = { filter, checked: checked === 'true' };
+      this.state = { 
+        filter,
+        checked: checked === 'true'
+      };
     }
   }
 
   render() {
-    const progress = this.props.store.todoStore.progress;
+    const progress = this.props.todoStore.progress;
     const { checked, filter } = this.state;
     return (
       <div>
         <div className="header">
-          <Link to="/"><h2>{this.props.title}</h2></Link>
+          <Link to="/">
+            <h2>{this.props.title}</h2>
+          </Link>
           <div className="header__search">
             <Checkbox
               className="header__checkbox"

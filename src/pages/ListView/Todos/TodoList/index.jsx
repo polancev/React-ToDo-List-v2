@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import TodoItem from './TodoItem/index';
 
-@inject('store')
+@inject('todoStore')
 @observer
 class TodoList extends Component {
   render() {
-    const { store, selectedCategory, filterParams } = this.props;
+    const { todoStore, selectedCategory, filterParams } = this.props;
     const { filter, checked } = filterParams;
 
     return (
       <ul className="todo-list">
-      { store.todoStore.list
+      { todoStore.list
           .filter(todo => {
             if (todo.category === selectedCategory) {
               if (!checked && todo.completed) return false;
@@ -24,7 +24,7 @@ class TodoList extends Component {
             <li key={todo.id} className="todo-list__item">
               <TodoItem
                 todo={todo}
-                onCheck={() => store.todoStore.check(todo.id)} />
+                onCheck={() => todoStore.check(todo.id)} />
             </li>) 
         }
       </ul>

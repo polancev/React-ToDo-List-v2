@@ -4,12 +4,12 @@ import UserInput from '../../../controls/UserInput/index';
 import TodoList from './TodoList/index';
 import './index.css';
 
-@inject('store')
+@inject('todoStore')
 @observer
 class Todos extends Component {
   addTodo = (name) => {
-    const { store, selectedCategory } = this.props;
-    store.todoStore.add(name, selectedCategory)
+    const { todoStore, selectedCategory } = this.props;
+    todoStore.add(name, selectedCategory)
   }
 
   render() {

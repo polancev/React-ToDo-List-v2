@@ -3,21 +3,22 @@ import { inject, observer } from 'mobx-react'
 import Categories from '../../components/Categories/index';
 import EditTodo from './EditTodo/index';
 
-@inject('store')
+@inject('todoStore')
 @observer
 class EditView extends Component {
   render() {
-    const { store, match, history } = this.props;
+    const { todoStore, match, history, location } = this.props;
     const id = match.params.todo;
-    const todo = store.todoStore.getTodoById(id) || {};
+    const todo = todoStore.getTodoById(id) || {};
 
     return (
       <div className="app">
         <h2>{todo.task}</h2>
         <div className="container">
           <div className="left-panel">
-            <Categories {...this.props}
+            <Categories
               mode="move"
+              location={location}
               selectedCategory={todo.category}
               onMove={this.onMove} />
           </div>
@@ -34,7 +35,7 @@ class EditView extends Component {
 
   onMove = (category) => {
     const todo = this.props.match.params.todo;
-    this.props.store.todoStore.move(todo, category);
+    this.props.todoStore.move(todo, category);
   }
 };
 

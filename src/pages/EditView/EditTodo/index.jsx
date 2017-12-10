@@ -4,7 +4,7 @@ import SimpleButton from '../../../controls/SimpleButton/index';
 import Checkbox from '../../../controls/Checkbox/index';
 import './index.css';
 
-@inject('store')
+@inject('todoStore')
 @observer
 class EditTodo extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class EditTodo extends Component {
   }
 
   onSubmit = async () => {
-    this.props.store.todoStore.update(this.props.id, this.state);
+    this.props.todoStore.update(this.props.id, this.state);
     this.closeTodo();
   }
 

@@ -21,6 +21,7 @@ class TodoStore {
               this.todos.set(item.id, { ...item });
             });
             this.pending = false;
+            resolve();
           });
         });
     });
@@ -42,6 +43,7 @@ class TodoStore {
         runInAction(() => {
           this.todos.set(v4(), new Todo(task, category));
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -56,6 +58,7 @@ class TodoStore {
           const todo = this.todos.get(id);
           this.todos.set(id, { ...todo, ...state });
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -69,6 +72,7 @@ class TodoStore {
         runInAction(() => {
           this.todos.get(id).completed = !this.todos.get(id).completed;
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -82,6 +86,7 @@ class TodoStore {
         runInAction(() => {
           this.todos.get(id).category = category;
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -95,6 +100,7 @@ class TodoStore {
           this.todos.keys()
             .filter(id => this.todos.get(id).category === category)
             .forEach(id => this.todos.delete(id));
+          resolve();
         });
       });
     });

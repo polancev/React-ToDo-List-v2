@@ -4,7 +4,7 @@ import Header from './Header/index';
 import Categories from '../../components/Categories/index';
 import Todos from './Todos/index';
 
-const ListView = (props) => {
+export default function ListView(props) {
   const { match, location } = props;
   const { category } = match.params;
   const { search } = location;
@@ -20,19 +20,17 @@ const ListView = (props) => {
   
   return (
     <div className="app">
-      <Header 
-        title="To-Do List" 
-        {...props}
-      />
+      <Header title="To-Do List" />
       <div className="container">
         <div className="left-panel">
           <Categories
-            {...props}
+            location={location}
             mode="edit"
             selectedCategory={category} />
         </div>
         <div className="right-panel">
-          { category && 
+          { 
+            category && 
             <Todos 
               selectedCategory={category}
               filterParams={filterParams} /> 
@@ -42,5 +40,3 @@ const ListView = (props) => {
     </div>
   );
 }
-
-export default ListView;
