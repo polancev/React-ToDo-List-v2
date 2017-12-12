@@ -1,8 +1,13 @@
 import React from 'react'
 
-export default function SimpleButton({ onClick, children }) {
+export default function SimpleButton({ onClick, children, type }) {
+  if (!type) type = 'button';
   return (
-    <button className="simple bordered" onClick={onClick}>
+    <button 
+      type={type}
+      className="simple bordered"
+      onClick={onClick}
+    >
       {children}
     </button>
   );

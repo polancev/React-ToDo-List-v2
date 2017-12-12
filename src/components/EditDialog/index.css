@@ -1,0 +1,26 @@
+.edit-dialog {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.7em;
+	text-align: center;
+}
+
+.edit-dialog h3 {
+	font-size: 2em;
+}
+
+.edit-dialog input[type="text"] {
+	font-size: 1em;
+	color: #6A6A6A;
+	padding-left: 5px;
+	border: 1px solid #6A6A6A;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	margin: 0 0 20px 0;
+}
+
+.edit-dialog__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}

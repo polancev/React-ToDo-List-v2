@@ -1,50 +1,72 @@
 import React, { Component } from 'react';
 import withLink from '../../../../hocs/withLink';
+import EditDialog from '../../../EditDialog/index';
 import Button from '../../../../controls/Button/index';
-import UserInput from '../../../../controls/UserInput/index';
+import ConfirmDialog from '../../../ConfirmDialog/index';
 import Modal from '../../../Modal/index';
 import './index.css';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 @withLink
 @inject('categoryStore')
+@observer
 export default class CategoryItem extends Component {
   state = {
-    isModalOpen: false
-  }
-
-  toggleModal = () => {
-    this.setState(state => ({isModalOpen: !state.isModalOpen}));
+    isAddDialogOpen: false,
+    isEditOpen: false,
+    isConfirmOpen: false
   }
 
   render() {
     const { category, mode, isSelected } = this.props;
-    const { id, name, isOpened, hasChildren } = category;
+    const { name, isOpened, hasChildren } = category;
 
     return (
       <div>
         <div className={isSelected ? "category selected" : "category"}>
           <div className="category__wrapper">
-            {hasChildren && <Button type={isOpened ? 'up' : 'down'} onClick={(e) => this.toggle(id, e)} />}
+            {hasChildren && <Button type={isOpened ? 'up' : 'down'} onClick={this.toggleCategory} />}
             <span className="category__title">{name}</span>
-            {(mode === 'edit') && <Button type="edit" onClick={(e) => this.edit(id, name, e)} />}
+            {(mode === 'edit') && (
+              <div>
+                <Button type="edit" onClick={this.toggleEdit} />
+                {this.state.isEditOpen &&
+                  <Modal>
+                    <EditDialog
+                      title="Enter category name"
+                      initial={name}
+                      onSubmit={this.saveEdit}
+                      onReset={this.toggleEdit}/>
+                  </Modal>
+                }
+              </div>)
+            }
           </div>
           <div className="category__wrapper">
             {(mode === 'edit')
               ? (<div>
-                <Button type='delete' onClick={(e) => this.delete(id, e)} />
-                <Button type='add' onClick={(e) => this.add(id, e)} />
-                {this.state.isModalOpen &&
+                <Button type='delete' onClick={this.toggleConfirm} />
+                {this.state.isConfirmOpen &&
                   <Modal>
-                    <UserInput
-                      value="Save"
-                      placeholder="Enter category title"
-                      initialValue={name}
-                      onSubmit={this.saveEdit} />
+                    <ConfirmDialog
+                      title="Are you sure you want to delete?"
+                      onSubmit={this.submitDelete}
+                      onReset={this.toggleConfirm}  
+                    />
+                  </Modal>
+                }
+                <Button type='add' onClick={this.toggleAddDialog} />
+                {this.state.isAddDialogOpen &&
+                  <Modal>
+                    <EditDialog
+                      title="Enter category name"
+                      initial='Category '
+                      onSubmit={this.submitAdd}
+                      onReset={this.toggleAddDialog}/>
                   </Modal>
                 }
               </div>)
-              : (!isSelected && <Button type="move" onClick={(e) => this.move(id, e)} />)
+              : (!isSelected && <Button type="move" onClick={this.move} />)
             }
           </div>
         </div>
@@ -52,46 +74,38 @@ export default class CategoryItem extends Component {
     );
   }
 
-  add(id, event) {
-    event.preventDefault();
-    // TODO: add input name interface
-    const name = prompt('Enter category name');
-    if (name) {
-      this.props.categoryStore.add(name, id);
-    }
+  submitAdd = (name) => {
+    this.props.categoryStore.add(name, this.props.category.id);
+    this.toggleAddDialog();
   }
 
-  edit(id, name, event) {
-    event.preventDefault();
-    // TODO: add input name interface
-    // name = prompt('Enter category name', name);
-    // if (name) {
-    //   this.props.categoryStore.update(id, 'name', name);
-    // }
-    // this.openModal();
-    this.toggleModal();
+  toggleAddDialog = () => {
+    this.setState(state => ({ isAddDialogOpen: !state.isAddDialogOpen }));
   }
 
   saveEdit = (name) => {
     this.props.categoryStore.update(this.props.category.id, 'name', name);
-    this.toggleModal();
+    this.toggleEdit();
   }
 
-  delete(id, event) {
-    event.preventDefault();
-    const result = window.confirm('Are you sure you want to delete');
-    if (result === true) {
-      this.props.categoryStore.delete(id);
-    }
+  toggleEdit = () => {
+    this.setState(state => ({ isEditOpen: !state.isEditOpen }));
   }
 
-  toggle(id, event) {
-    event.preventDefault();
-    this.props.categoryStore.toggle(id);
+  submitDelete = () => {
+    this.props.categoryStore.delete(this.props.category.id);
+    this.toggleConfirm();
   }
 
-  move(id, event) {
-    event.preventDefault();
-    this.props.onMove(id);
+  toggleConfirm = () => {
+    this.setState(state => ({ isConfirmOpen: !state.isConfirmOpen }));
+  }
+
+  toggleCategory = () => {
+    this.props.categoryStore.toggle(this.props.category.id);
+  }
+
+  move = () => {
+    this.props.onMove(this.props.category.id);
   }
 };

@@ -38,6 +38,6 @@ export default class Categories extends Component {
   };
 
   addCategory = (name) => {
-    this.props.categoryStore.add(name);
+    this.props.categoryStore.add(name, '');
   }
 };
