@@ -67,15 +67,15 @@ class EditTodo extends Component {
     );
   }
 
-  onTaskChange = event => {
+  onTaskChange = (event) => {
     this.setState({ task: event.target.value });
   }
 
-  onCompleteChange = event => {
-    this.setState({ completed: event.target.checked });
+  onCompleteChange = () => {
+    this.setState(state => ({ completed: !state.completed }));
   }
 
-  onDescription = event => {
+  onDescription = (event) => {
     this.setState({ description: event.target.value });
   }
 

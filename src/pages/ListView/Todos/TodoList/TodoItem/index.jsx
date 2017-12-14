@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { inject, observer } from 'mobx-react';
 import Button from '../../../../../controls/Button/index';
 import Checkbox from '../../../../../controls/Checkbox/index';
 import './index.css';
 
+@inject('todoStore')
+@observer
 class TodoItem extends Component {
 	render() {
-    const { todo, onCheck } = this.props;
-    const { id, task, completed } = todo;
+    const { id, task, completed } = this.props.todo;
     
     return (
       <div className="todo">
@@ -15,7 +17,7 @@ class TodoItem extends Component {
           <Checkbox 
             title={task}
             checked={completed}
-            onClick={onCheck} />
+            onClick={this.onCheck} />
         </div>
         <div className="todo__wrapper">
           <Link to={`/edit/${id}`}>
@@ -24,6 +26,10 @@ class TodoItem extends Component {
         </div>
       </div>
     );
+  }
+
+  onCheck = () => {
+    this.props.todoStore.check(this.props.todo.id);
   }
 }
 

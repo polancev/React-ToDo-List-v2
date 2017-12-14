@@ -29,8 +29,7 @@ export default function ListView(props) {
             selectedCategory={category} />
         </div>
         <div className="right-panel">
-          { 
-            category && 
+          { category && 
             <Todos 
               selectedCategory={category}
               filterParams={filterParams} /> 

@@ -74,38 +74,52 @@ export default class CategoryItem extends Component {
     );
   }
 
+
   submitAdd = (name) => {
     this.props.categoryStore.add(name, this.props.category.id);
     this.toggleAddDialog();
   }
 
-  toggleAddDialog = () => {
+  toggleAddDialog = (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.setState(state => ({ isAddDialogOpen: !state.isAddDialogOpen }));
   }
+  
 
   saveEdit = (name) => {
     this.props.categoryStore.update(this.props.category.id, 'name', name);
     this.toggleEdit();
   }
 
-  toggleEdit = () => {
+  toggleEdit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.setState(state => ({ isEditOpen: !state.isEditOpen }));
   }
 
-  submitDelete = () => {
+  submitDelete = (event) => {
     this.props.categoryStore.delete(this.props.category.id);
-    this.toggleConfirm();
+    this.toggleConfirm(event);
   }
 
-  toggleConfirm = () => {
+  toggleConfirm = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.setState(state => ({ isConfirmOpen: !state.isConfirmOpen }));
   }
 
-  toggleCategory = () => {
+  toggleCategory = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.props.categoryStore.toggle(this.props.category.id);
   }
 
-  move = () => {
+  move = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.props.onMove(this.props.category.id);
   }
 };

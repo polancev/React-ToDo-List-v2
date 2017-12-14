@@ -128,7 +128,7 @@ class Category {
 	@observable parent;
 	@observable isOpened;
 
-	constructor(id, name, parent = null, isOpened = false, timestamp = Date.now()) {
+	constructor(id, name, parent = '', isOpened = false, timestamp = Date.now()) {
     this.id = id;
     this.name = name;
     this.parent =  parent;

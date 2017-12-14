@@ -11,20 +11,10 @@ class TodoList extends Component {
 
     return (
       <ul className="todo-list">
-      { todoStore.list
-          .filter(todo => {
-            if (todo.category === selectedCategory) {
-              if (!checked && todo.completed) return false;
-              if (filter && todo.task.toUpperCase().indexOf(filter.toUpperCase()) === -1) return false;
-              return true;
-            }
-            return false;
-          })
+        { todoStore.list({ selectedCategory, checked, filter })
           .map(todo =>
             <li key={todo.id} className="todo-list__item">
-              <TodoItem
-                todo={todo}
-                onCheck={() => todoStore.check(todo.id)} />
+              <TodoItem todo={todo} />
             </li>) 
         }
       </ul>

@@ -42,8 +42,8 @@ export default class Button extends React.Component {
   }
 
   handleClick = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    this.props.onClick();
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
   }
 };
