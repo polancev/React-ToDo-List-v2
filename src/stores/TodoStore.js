@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed, runInAction, createTransformer } from 'mobx';
 import { v4 } from 'uuid';
 
 
@@ -18,21 +18,45 @@ class TodoStore {
         .then(list => {
           runInAction(() => {
             list.forEach(item => {
-              this.todos.set(item.id, { ...item });
+              this.todos.set(item.id, new Todo(
+                item.id,
+                item.task,
+                item.category,
+                item.completed
+              ));
             });
             this.pending = false;
+            resolve();
           });
         });
     });
   }
 
-  @computed
-  get list() {
+  // @computed
+  // get list() {
+  //   return this.todos
+  //     .keys()
+  //     .sort((a, b) => this.todos.get(a).timestamp < this.todos.get(b).timestamp)
+  //     .map(id => ({ id, ...this.todos.get(id) }));
+  // }
+
+  list = createTransformer(({ selectedCategory, checked, filter }) => {
     return this.todos
-      .keys()
-      .sort((a, b) => this.todos.get(a).timestamp < this.todos.get(b).timestamp)
-      .map(id => ({ id, ...this.todos.get(id) }));
-  }
+      .values()
+      .filter(todo => {
+        if (todo.category === selectedCategory) {
+          if (!checked && todo.completed) {
+            return false;
+          }
+          if (filter && todo.task.toUpperCase().indexOf(filter.toUpperCase()) === -1) {
+            return false;
+          }
+          return true;
+        }
+        return false;
+      })
+      .sort((a, b) => a.timestamp < b.timestamp);
+  });
 
   @action
   add(task, category) {
@@ -40,8 +64,10 @@ class TodoStore {
       this.pending = true;
       setTimeout(() => {
         runInAction(() => {
-          this.todos.set(v4(), new Todo(task, category));
+          const id = v4();
+          this.todos.set(id, new Todo(id, task, category));
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -56,6 +82,7 @@ class TodoStore {
           const todo = this.todos.get(id);
           this.todos.set(id, { ...todo, ...state });
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -67,8 +94,10 @@ class TodoStore {
       this.pending = true;
       setTimeout(() => {
         runInAction(() => {
-          this.todos.get(id).completed = !this.todos.get(id).completed;
+          const todo = this.todos.get(id);
+          todo.completed = !todo.completed;
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -82,6 +111,7 @@ class TodoStore {
         runInAction(() => {
           this.todos.get(id).category = category;
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -95,6 +125,7 @@ class TodoStore {
           this.todos.keys()
             .filter(id => this.todos.get(id).category === category)
             .forEach(id => this.todos.delete(id));
+          resolve();
         });
       });
     });
@@ -126,14 +157,17 @@ class TodoStore {
 export default new TodoStore();
 
 class Todo {
+  id;
   @observable task = '';
   @observable category = null;
   @observable completed = false;
   description = '';
 
-  constructor(task, category, completed) {
+  constructor(id, task, category, completed = false, timestamp = Date.now()) {
+    this.id = id;
     this.task = task;
     this.category = category;
-    this.timestamp = Date.now();
+    this.completed = completed;
+    this.timestamp = timestamp;
   }
 }

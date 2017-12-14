@@ -1,0 +1,17 @@
+.confirm {
+	
+	font-size: 2em;
+}
+
+.confirm__title {
+	margin-bottom: 20px;
+}
+
+.confirm__buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+.confirm__submit{
+	margin-bottom: 20px;
+}

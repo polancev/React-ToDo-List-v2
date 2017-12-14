@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed, runInAction, createTransformer } from 'mobx';
 import { v4 } from 'uuid';
 import todoStore from './TodoStore';
 
@@ -12,6 +12,7 @@ class CategoryStore {
     this.categories.assignee = todoStore;
   }
 
+  @action
   fill() {
     return new Promise((resolve, reject) => {
       this.pending = true;
@@ -20,9 +21,14 @@ class CategoryStore {
         .then(list => {
           runInAction(() => {
             list.forEach(item => {
-              this.categories.set(item.id, {...item});
+              const { id, name, parent, isOpened, timestamp } = item;
+              this.categories.set(id, new Category(id, name, parent, isOpened, timestamp));
             });
+            // for (let i = 0; i < 1000; i++) {
+            //   this.categories.set(i, new Category('Category '+i));
+            // }
             this.pending = false;
+            resolve();
           });
         });
     });
@@ -35,7 +41,7 @@ class CategoryStore {
       setTimeout(() => {
         runInAction(() => {
           const id = v4();
-          this.categories.set(id, new Category(name, parent));
+          this.categories.set(id, new Category(id, name, parent));
           if (parent) {
             this.toggle(parent, true);
           }
@@ -59,6 +65,7 @@ class CategoryStore {
             .forEach(childId => this.delete(childId));
         }
         this.pending = false;
+        resolve();
       }, 100);
     });
   }
@@ -71,6 +78,7 @@ class CategoryStore {
         runInAction(() => {
           this.categories.get(id)[key] = value;
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
@@ -88,39 +96,49 @@ class CategoryStore {
             this.categories.get(id).isOpened = !this.categories.get(id).isOpened;
           }
           this.pending = false;
+          resolve();
         });
       }, 100);
     });
   }
   
-  @computed
-  get list() {
-    return this.categories
-      .keys()
-      .sort((a, b) => this.categories.get(a).timestamp < this.categories.get(b).timestamp)
-      .map(id => ({ id, ...this.categories.get(id) }));
-  }
+  // @computed
+  // get list() {
+  //   return this.categories
+  //     .keys()
+  //     .sort((a, b) => this.categories.get(a).timestamp < this.categories.get(b).timestamp)
+  //     .map(id => ({ id, ...this.categories.get(id) }));
+  // }
 
-  hasChildren(id) {
-    return !!this.categories.values().find(item => item.parent === id);
-  }
+  list = createTransformer(parent => {
+    return this.categories
+      .values()
+      .filter(category => category.parent === parent)
+      .sort((a, b) => a.timestamp < b.timestamp);
+  });
+
+  // hasChildren(id) {
+  //   return !!this.categories.values().find(item => item.parent === id);
+  // }
 }
 
 
 class Category {
-	@observable name = '';
-	@observable parent = null;
-	@observable isOpened = false;
+	@observable name;
+	@observable parent;
+	@observable isOpened;
 
-	constructor(name, parent) {
+	constructor(id, name, parent = '', isOpened = false, timestamp = Date.now()) {
+    this.id = id;
     this.name = name;
-    this.parent =  parent || null;
-    this.timestamp = Date.now();
+    this.parent =  parent;
+    this.isOpened = isOpened;
+    this.timestamp = timestamp;
   }
   
   @computed
   get hasChildren() {
-    return !!categoryStore.categories.value().find(item => item.parent === this.id)
+    return !!categoryStore.categories.values().find(item => item.parent === this.id)
   }
 }
 
